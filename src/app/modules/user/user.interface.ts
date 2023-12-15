@@ -1,8 +1,8 @@
-export type User = {
+export type TUser = {
   id: string;
   password: string;
-  needsPasswordChange: string;
+  needsPasswordChange: boolean;
   role: 'owner' | 'cashier' | 'admin';
-  status: 'in-progress' | 'block';
+  status: 'in-progress' | 'blocked';
   isDeleted: boolean;
 };
