@@ -1,3 +1,6 @@
+import httpStatus from 'http-status';
+import mongoose from 'mongoose';
+import AppError from '../../errors/AppError';
 import { TOwner } from '../owner/owner.interface';
 import { Owner } from '../owner/owner.model';
 import { TUser } from './user.interface';
@@ -16,20 +19,38 @@ const createOwnerIntoDB = async (payload: TOwner) => {
   // set student email
   userData.email = payload.email;
 
-  // set generated id
-  userData.id = await generateOwnerId();
+  // START SESSION
+  const session = await mongoose.startSession();
 
-  // create a user
-  const newUser = await User.create(userData);
+  try {
+    session.startTransaction();
+    // set generated id
+    userData.id = await generateOwnerId();
+    // create a user (transaction-1)
+    const newUser = await User.create([userData], { session });
 
-  // create a owner
-  if (Object.keys(newUser).length) {
+    // create a owner
+    if (!newUser.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Faild to create user');
+    }
     // set id, _id as user
-    payload.id = newUser.id;
-    payload.user = newUser._id;
+    payload.id = newUser[0].id;
+    payload.user = newUser[0]._id;
+
+    // create a owner (transaction-2)
+    const newOwner = await Owner.create([payload], { session });
+
+    if (!newOwner.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Faild to create Owner');
+    }
+
+    await session.commitTransaction();
+    await session.endSession();
+    return newOwner;
+  } catch (error) {
+    await session.abortTransaction();
+    await session.endSession();
   }
-  const newOwner = await Owner.create(payload);
-  return newOwner;
 };
 
 export const UserServices = {
