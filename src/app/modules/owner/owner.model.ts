@@ -50,6 +50,11 @@ const ownerSchema = new Schema<TOwner>(
       required: [true, 'Email is required'],
       unique: true,
     },
+    contactNo: {
+      type: String,
+      required: [true, 'Contact number is required'],
+      unique: true,
+    },
     country: {
       type: String,
       required: true,

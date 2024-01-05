@@ -2,6 +2,7 @@ import { TOwner } from '../owner/owner.interface';
 import { Owner } from '../owner/owner.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
+import { generateOwnerId } from './user.utils';
 
 // create owner into DB
 const createOwnerIntoDB = async (payload: TOwner) => {
@@ -15,8 +16,8 @@ const createOwnerIntoDB = async (payload: TOwner) => {
   // set student email
   userData.email = payload.email;
 
-  // set id
-  userData.id = '2030100001';
+  // set generated id
+  userData.id = await generateOwnerId();
 
   // create a user
   const newUser = await User.create(userData);

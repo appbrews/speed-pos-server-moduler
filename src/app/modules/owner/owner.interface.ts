@@ -13,6 +13,7 @@ export type TOwner = {
   name: TUserName;
   gender: 'male' | 'female' | 'other';
   email: string;
+  contactNo: string;
   country: string;
   city: string;
   street: string;
