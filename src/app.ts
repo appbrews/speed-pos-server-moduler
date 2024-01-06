@@ -2,7 +2,8 @@ import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import notFound from './app/middlewares/notFound';
-import { UserRoutes } from './app/modules/user/user.route';
+import router from './app/routes';
+
 const app: Application = express();
 
 // Parsers
@@ -14,8 +15,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // application routes
-// app.use('/api/v1/owners', Own);
-app.use('/api/v1/users', UserRoutes);
+
+app.use('/api/v1/', router);
 
 // Global error handler
 app.use(globalErrorHandler);

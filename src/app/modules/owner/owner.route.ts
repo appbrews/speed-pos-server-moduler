@@ -1,7 +1,8 @@
 import express from 'express';
+import { OwnerControllers } from './owner.controller';
 
 const router = express.Router();
 
-router.post('/create-owner');
+router.delete('/:id', OwnerControllers.deleteOwner);
 
-export const UserRoutes = router;
+export const OwnerRoutes = router;

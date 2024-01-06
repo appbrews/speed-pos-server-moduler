@@ -26,13 +26,14 @@ const createOwnerIntoDB = async (payload: TOwner) => {
     session.startTransaction();
     // set generated id
     userData.id = await generateOwnerId();
+
     // create a user (transaction-1)
     const newUser = await User.create([userData], { session });
 
-    // create a owner
     if (!newUser.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Faild to create user');
     }
+
     // set id, _id as user
     payload.id = newUser[0].id;
     payload.user = newUser[0]._id;
@@ -52,6 +53,8 @@ const createOwnerIntoDB = async (payload: TOwner) => {
     await session.endSession();
   }
 };
+
+// DELETE
 
 export const UserServices = {
   createOwnerIntoDB,
