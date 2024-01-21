@@ -5,7 +5,6 @@ import { User } from '../user/user.model';
 import { Owner } from './owner.model';
 
 const deleteOwnerFromDB = async (id: string) => {
-  console.log(id, 'id');
   const session = await mongoose.startSession();
 
   try {
