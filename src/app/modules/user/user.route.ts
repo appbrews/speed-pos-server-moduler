@@ -1,14 +1,14 @@
 import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
-import { createOwnerValidationSchema } from '../owner/owner.validation';
+import { createMemberValidationSchema } from '../member/member.validation';
 import { UserControllers } from './user.controller';
 
 const router = express.Router();
 
 router.post(
-  '/create-owner',
-  validateRequest(createOwnerValidationSchema),
-  UserControllers.createOwner,
+  '/create-member',
+  validateRequest(createMemberValidationSchema),
+  UserControllers.createMember,
 );
 
 export const UserRoutes = router;

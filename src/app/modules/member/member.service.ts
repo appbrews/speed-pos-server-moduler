@@ -2,26 +2,26 @@ import httpStatus from 'http-status';
 import mongoose from 'mongoose';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
-import { Owner } from './owner.model';
+import { Member } from './member.model';
 
-const deleteOwnerFromDB = async (id: string) => {
+const deleteMemberFromDB = async (id: string) => {
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
 
-    const deletedOwner = await Owner.findByIdAndUpdate(
+    const deletedMember = await Member.findByIdAndUpdate(
       id,
       { isDeleted: true },
       { new: true, session },
     );
 
-    if (!deletedOwner) {
+    if (!deletedMember) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete owner');
     }
 
-    // get user _id from deletedOwner
-    const userId = deletedOwner.user;
+    // get user _id from deletedMember
+    const userId = deletedMember.user;
 
     const deletedUser = await User.findByIdAndUpdate(
       userId,
@@ -36,7 +36,7 @@ const deleteOwnerFromDB = async (id: string) => {
     await session.commitTransaction();
     await session.endSession();
 
-    return deletedOwner;
+    return deletedMember;
   } catch (err) {
     await session.abortTransaction();
     await session.endSession();
@@ -44,6 +44,6 @@ const deleteOwnerFromDB = async (id: string) => {
   }
 };
 
-export const OwnerServices = {
-  deleteOwnerFromDB,
+export const MemberServices = {
+  deleteMemberFromDB,
 };

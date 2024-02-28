@@ -1,10 +1,10 @@
 import { User } from './user.model';
 
 // Owner ID
-export const findLastOwnerId = async () => {
-  const lastOwner = await User.findOne(
+export const findLastMemberId = async () => {
+  const lastMember = await User.findOne(
     {
-      role: 'owner',
+      role: 'member',
     },
     {
       id: 1,
@@ -15,16 +15,16 @@ export const findLastOwnerId = async () => {
       createdAt: -1,
     })
     .lean();
-  console.log(lastOwner?.id, 'ownerID');
-  return lastOwner?.id ? lastOwner.id.substring(2) : undefined;
+  console.log(lastMember?.id, 'memberID');
+  return lastMember?.id ? lastMember.id.substring(2) : undefined;
 };
 
 export const generateOwnerId = async () => {
   let currentId = (0).toString();
-  const lastOwnerId = await findLastOwnerId();
+  const lastMemberId = await findLastMemberId();
 
-  if (lastOwnerId) {
-    currentId = lastOwnerId.substring(4);
+  if (lastMemberId) {
+    currentId = lastMemberId.substring(4);
   }
 
   let incrementId = (Number(currentId) + 1).toString().padStart(4, '0');

@@ -1,12 +1,12 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
-import { OwnerServices } from './owner.service';
+import { MemberServices } from './member.service';
 
-const deleteOwner = catchAsync(async (req, res) => {
+const deleteMember = catchAsync(async (req, res) => {
   const { id } = req.params;
   console.log(id, 'paramsID');
-  const result = await OwnerServices.deleteOwnerFromDB(id);
+  const result = await MemberServices.deleteMemberFromDB(id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -16,6 +16,6 @@ const deleteOwner = catchAsync(async (req, res) => {
   });
 });
 
-export const OwnerControllers = {
-  deleteOwner,
+export const MemberControllers = {
+  deleteMember,
 };

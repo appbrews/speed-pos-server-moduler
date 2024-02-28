@@ -6,7 +6,7 @@ export type TUserName = {
   lastName: string;
 };
 
-export type TOwner = {
+export type TMember = {
   id: string;
   password: string;
   user: Types.ObjectId;
@@ -22,6 +22,6 @@ export type TOwner = {
 };
 
 // for creating static
-export interface StudentModel extends Model<TOwner> {
-  isUserExists(id: string): Promise<TOwner | null>;
+export interface StudentModel extends Model<TMember> {
+  isUserExists(id: string): Promise<TMember | null>;
 }

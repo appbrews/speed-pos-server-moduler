@@ -1,20 +1,21 @@
 import httpStatus from 'http-status';
 import mongoose from 'mongoose';
 import AppError from '../../errors/AppError';
-import { TOwner } from '../owner/owner.interface';
-import { Owner } from '../owner/owner.model';
+
+import { TMember } from '../member/member.interface';
+import { Member } from '../member/member.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
 import { generateOwnerId } from './user.utils';
 
 // create owner into DB
-const createOwnerIntoDB = async (payload: TOwner) => {
+const createMemberIntoDB = async (payload: TMember) => {
   // create a user object
   const userData: Partial<TUser> = {};
   userData.password = payload.password;
 
   // set owner role
-  userData.role = 'owner';
+  userData.role = 'member';
 
   // set student email
   userData.email = payload.email;
@@ -39,7 +40,7 @@ const createOwnerIntoDB = async (payload: TOwner) => {
     payload.user = newUser[0]._id;
 
     // create a owner (transaction-2)
-    const newOwner = await Owner.create([payload], { session });
+    const newOwner = await Member.create([payload], { session });
 
     if (!newOwner.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Faild to create Owner');
@@ -57,5 +58,5 @@ const createOwnerIntoDB = async (payload: TOwner) => {
 // DELETE
 
 export const UserServices = {
-  createOwnerIntoDB,
+  createMemberIntoDB,
 };

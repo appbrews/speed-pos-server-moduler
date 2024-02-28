@@ -3,11 +3,11 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { UserServices } from './user.service';
 
-// Create owner
-const createOwner = catchAsync(async (req, res) => {
-  const { owner: ownerData } = req.body;
+// Create member
+const createMember = catchAsync(async (req, res) => {
+  const { member: MemberData } = req.body;
 
-  const result = await UserServices.createOwnerIntoDB(ownerData);
+  const result = await UserServices.createMemberIntoDB(MemberData);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -18,5 +18,5 @@ const createOwner = catchAsync(async (req, res) => {
 });
 
 export const UserControllers = {
-  createOwner,
+  createMember,
 };
