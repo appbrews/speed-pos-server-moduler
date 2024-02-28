@@ -6,7 +6,7 @@ import { TMember } from '../member/member.interface';
 import { Member } from '../member/member.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
-import { generateOwnerId } from './user.utils';
+import { generateMemberId } from './user.utils';
 
 // create owner into DB
 const createMemberIntoDB = async (payload: TMember) => {
@@ -26,7 +26,7 @@ const createMemberIntoDB = async (payload: TMember) => {
   try {
     session.startTransaction();
     // set generated id
-    userData.id = await generateOwnerId();
+    userData.id = await generateMemberId();
 
     // create a user (transaction-1)
     const newUser = await User.create([userData], { session });

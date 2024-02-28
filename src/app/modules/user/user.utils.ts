@@ -15,12 +15,14 @@ export const findLastMemberId = async () => {
       createdAt: -1,
     })
     .lean();
+
   console.log(lastMember?.id, 'memberID');
   return lastMember?.id ? lastMember.id.substring(2) : undefined;
 };
 
-export const generateOwnerId = async () => {
+export const generateMemberId = async () => {
   let currentId = (0).toString();
+
   const lastMemberId = await findLastMemberId();
 
   if (lastMemberId) {
@@ -30,7 +32,7 @@ export const generateOwnerId = async () => {
   let incrementId = (Number(currentId) + 1).toString().padStart(4, '0');
 
   const currentYear = new Date().getFullYear();
-  incrementId = `O-${currentYear}${incrementId}`;
+  incrementId = `M-${currentYear}${incrementId}`;
 
   return incrementId;
 };

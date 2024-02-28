@@ -15,7 +15,6 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // application routes
-
 app.use('/api/v1/', router);
 
 // Global error handler
