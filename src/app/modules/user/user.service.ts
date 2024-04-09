@@ -32,23 +32,23 @@ const createMemberIntoDB = async (payload: TMember) => {
     const newUser = await User.create([userData], { session });
 
     if (!newUser.length) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Faild to create user');
+      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create user');
     }
 
     // set id, _id as user
     payload.id = newUser[0].id;
     payload.user = newUser[0]._id;
 
-    // create a owner (transaction-2)
-    const newOwner = await Member.create([payload], { session });
+    // create a member (transaction-2)
+    const newMember = await Member.create([payload], { session });
 
-    if (!newOwner.length) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Faild to create Owner');
+    if (!newMember.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create Owner');
     }
 
     await session.commitTransaction();
     await session.endSession();
-    return newOwner;
+    return newMember;
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();

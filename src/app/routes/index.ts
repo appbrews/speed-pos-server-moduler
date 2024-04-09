@@ -19,7 +19,7 @@ const moduleRoutes = [
     route: MemberRoutes,
   },
   {
-    path: '/products',
+    path: '/product',
     route: ProductRoutes,
   },
   {

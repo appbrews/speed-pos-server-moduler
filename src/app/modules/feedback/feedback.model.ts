@@ -9,8 +9,9 @@ const feedbackSchema = new Schema<TFeedback>(
       trim: true,
     },
     createdBy: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
+      required: true,
+      trim: true,
     },
   },
   { timestamps: true },

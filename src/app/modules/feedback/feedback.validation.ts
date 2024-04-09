@@ -6,7 +6,14 @@ const createFeedbackValidationSchema = z.object({
     feedback: z
       .string()
       .min(3, { message: 'Feedback must be at least 3 characters long' })
-      .max(250, { message: 'Feedback cannot exceed 250 characters' }),
+      .max(250, { message: 'Feedback cannot exceed 250 characters' })
+      .trim()
+      .refine((value) => {
+        if (!isNaN(Number(value))) {
+          throw new Error('Feedback cannot be a number');
+        }
+        return true;
+      }),
   }),
 });
 
