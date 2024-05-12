@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { TMember, TUserName } from './member.interface';
+import { TMerchant, TUserName } from './merchant.interface';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -20,7 +20,7 @@ const userNameSchema = new Schema<TUserName>({
   },
 });
 
-const memberSchema = new Schema<TMember>(
+const merchantSchema = new Schema<TMerchant>(
   {
     id: {
       type: String,
@@ -86,8 +86,8 @@ const memberSchema = new Schema<TMember>(
 );
 
 // virtual
-memberSchema.virtual('fullName').get(function () {
+merchantSchema.virtual('fullName').get(function () {
   return this?.name?.firstName + this?.name?.middleName + this?.name?.lastName;
 });
 
-export const Member = model<TMember>('Member', memberSchema);
+export const Merchant = model<TMerchant>('Merchnat', merchantSchema);

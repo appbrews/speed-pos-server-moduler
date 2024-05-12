@@ -5,7 +5,7 @@ export interface TUser {
   id: string;
   email: string;
   password: string;
-  role: 'admin' | 'member' | 'employee';
+  role: 'admin' | 'merchant' | 'employee';
   status: 'in-progress' | 'blocked';
   isDeleted: boolean;
 }

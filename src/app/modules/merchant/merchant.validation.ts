@@ -12,10 +12,10 @@ const createUserNameValidationSchema = z.object({
   lastName: z.string(),
 });
 
-export const createMemberValidationSchema = z.object({
+export const createMerchantValidationSchema = z.object({
   body: z.object({
     password: z.string().max(20).optional(),
-    member: z.object({
+    merchant: z.object({
       name: createUserNameValidationSchema,
       gender: z.enum(['male', 'female', 'other']),
       email: z.string().email(),
@@ -28,6 +28,6 @@ export const createMemberValidationSchema = z.object({
   }),
 });
 
-export const memberValidations = {
-  createMemberValidationSchema,
+export const merchantValidations = {
+  createMerchantValidationSchema,
 };

@@ -1,21 +1,21 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
-import { MemberServices } from './member.service';
+import { MemberServices } from './merchant.service';
 
-const deleteMember = catchAsync(async (req, res) => {
+const deleteMerchant = catchAsync(async (req, res) => {
   const { id } = req.params;
   console.log(id, 'paramsID');
-  const result = await MemberServices.deleteMemberFromDB(id);
+  const result = await MemberServices.deleteMerchantFromDB(id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Owner is deleted succesfully',
+    message: 'Merchant is deleted succesfully',
     data: result,
   });
 });
 
 export const MemberControllers = {
-  deleteMember,
+  deleteMerchant,
 };

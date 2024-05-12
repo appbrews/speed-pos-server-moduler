@@ -3,11 +3,11 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { UserServices } from './user.service';
 
-// Create member
-const createMember = catchAsync(async (req, res) => {
-  const { member: MemberData } = req.body;
+// Create a merchant
+const createMerchant = catchAsync(async (req, res) => {
+  const { merchant: merchantData } = req.body;
 
-  const result = await UserServices.createMemberIntoDB(MemberData);
+  const result = await UserServices.createMerchantIntoDB(merchantData);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -18,5 +18,5 @@ const createMember = catchAsync(async (req, res) => {
 });
 
 export const UserControllers = {
-  createMember,
+  createMerchant,
 };

@@ -2,20 +2,20 @@ import httpStatus from 'http-status';
 import mongoose from 'mongoose';
 import AppError from '../../errors/AppError';
 
-import { TMember } from '../member/member.interface';
-import { Member } from '../member/member.model';
+import { TMerchant } from '../merchant/merchant.interface';
+import { Merchant } from '../merchant/merchant.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
-import { generateMemberId } from './user.utils';
+import { generateMerchentId } from './user.utils';
 
 // create owner into DB
-const createMemberIntoDB = async (payload: TMember) => {
+const createMerchantIntoDB = async (payload: TMerchant) => {
   // create a user object
   const userData: Partial<TUser> = {};
   userData.password = payload.password;
 
   // set owner role
-  userData.role = 'member';
+  userData.role = 'merchant';
 
   // set student email
   userData.email = payload.email;
@@ -26,7 +26,7 @@ const createMemberIntoDB = async (payload: TMember) => {
   try {
     session.startTransaction();
     // set generated id
-    userData.id = await generateMemberId();
+    userData.id = await generateMerchentId();
 
     // create a user (transaction-1)
     const newUser = await User.create([userData], { session });
@@ -40,7 +40,7 @@ const createMemberIntoDB = async (payload: TMember) => {
     payload.user = newUser[0]._id;
 
     // create a member (transaction-2)
-    const newMember = await Member.create([payload], { session });
+    const newMember = await Merchant.create([payload], { session });
 
     if (!newMember.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create Owner');
@@ -58,5 +58,5 @@ const createMemberIntoDB = async (payload: TMember) => {
 // DELETE
 
 export const UserServices = {
-  createMemberIntoDB,
+  createMerchantIntoDB,
 };

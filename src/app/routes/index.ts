@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { AuthRoutes } from '../modules/auth/auth.route';
 import { CategoryRoutes } from '../modules/category/category.route';
 import { FeedbackRoutes } from '../modules/feedback/feedback.route';
-import { MemberRoutes } from '../modules/member/member.route';
+import { MerchantRoute } from '../modules/merchant/merchant.route';
 import { NewsletterRoutes } from '../modules/newsletter/newsletter.route';
 import { ProductRoutes } from '../modules/product/product.route';
 import { UserRoutes } from '../modules/user/user.route';
@@ -15,8 +15,8 @@ const moduleRoutes = [
     route: UserRoutes,
   },
   {
-    path: '/members',
-    route: MemberRoutes,
+    path: '/merchant',
+    route: MerchantRoute,
   },
   {
     path: '/product',

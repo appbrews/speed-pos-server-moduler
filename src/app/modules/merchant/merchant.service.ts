@@ -2,15 +2,15 @@ import httpStatus from 'http-status';
 import mongoose from 'mongoose';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
-import { Member } from './member.model';
+import { Merchant } from './merchant.model';
 
-const deleteMemberFromDB = async (id: string) => {
+const deleteMerchantFromDB = async (id: string) => {
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
 
-    const deletedMember = await Member.findByIdAndUpdate(
+    const deletedMember = await Merchant.findByIdAndUpdate(
       id,
       { isDeleted: true },
       { new: true, session },
@@ -44,6 +44,6 @@ const deleteMemberFromDB = async (id: string) => {
   }
 };
 
-export const MemberServices = {
-  deleteMemberFromDB,
+export const MerchantServices = {
+  deleteMerchantFromDB,
 };
